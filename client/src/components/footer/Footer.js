@@ -1,0 +1,102 @@
+import React from 'react'
+import { MdOutlinePinDrop, MdMail, MdAddCall } from "react-icons/md";
+import { Link } from 'react-router-dom';
+import footerlogo from '../../assests/logos/footer.png';
+
+ const footerP = "w-5/6 m-0 p-0 text-white flex items-center";
+ const footerPicon = "text-[#546075] font-bold text-lg mr-1 mt-1";
+
+export default function Footer() {
+    return (
+        <div className=' bg-[#161E2D] text-white '>
+            <div className='w-5/6 mx-auto '>
+
+                <footer className="footer flex items-center justify-between p-10">
+                    <div>
+                        <p className='w-5/6 m-0 p-0 text-[#546075] text-base'>Specializes in providing high-class tours for those in need
+                        . Contact Us</p>
+
+                        <p className={footerP}>
+                            <MdOutlinePinDrop  className={footerPicon} />
+                            101 E 129th St, East Chicago, IN 46312, US</p>
+                        <p className={footerP}>
+                            <MdAddCall  className={footerPicon} />
+                            +1 219-391-8481</p>
+                        <p className={footerP}>
+                            <MdMail className={footerPicon} />  themesflat@gmail.com
+                        </p>
+
+                    </div>
+                    <nav>
+                        <h6 className="footer-title">Services</h6>
+                        <Link to="/" className="link link-hover">Home</Link>
+                        <Link to="/dashboard/propertyTable" className="link link-hover">Properties</Link>
+                        <Link to="/dashboard/propertytable" className="link link-hover">Buy Property</Link>
+                    </nav>
+                    <nav>
+                        <h6 className="footer-title">Company</h6>
+                        <Link to="/aboutus" className="link link-hover">About us</Link>
+                        <Link to="/contactus" className="link link-hover">Contact Us</Link>
+                        <Link to="/blog" className="link link-hover">Blog</Link>
+                    </nav>
+                    <nav>
+                        <h6 className="footer-title footer-center">Legal</h6>
+                        <Link to="/servicepolicy" className="link link-hover">Terms of use</Link>
+                        <Link to="/servicepolicy"className="link link-hover">Privacy policy</Link>
+                        <Link to="/servicepolicy" className="link link-hover">Cookie policy</Link>
+                        
+                    </nav>
+                </footer>
+                <footer className="footer border-base-300 border-t px-10 py-4">
+                    <aside className="grid-flow-col items-center">
+                    <img src={footerlogo} alt="Footer Logo" className='w-15' />  
+                        <p>
+                            Real Estate Ventures
+                            <br />
+                            &copy; 2024 All rights reserved
+                        </p>
+                    </aside>
+                    <nav className="md:place-self-center md:justify-self-end">
+                        <div className="grid grid-flow-col gap-4">
+                            <a href='#!'>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    className="fill-current cursor-pointer hover:text-blue-500">
+                                    <path
+                                        d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                                </svg>
+                            </a>
+                            <a href='#!'>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    className="fill-current cursor-pointer hover:text-red-600">
+                                    <path
+                                        d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                </svg>
+                            </a>
+                            <a href='#!'>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    className="fill-current cursor-pointer hover:text-blue-700">
+                                    <path
+                                        d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </nav>
+                </footer>
+
+
+            </div>
+        </div>
+    )
+}
