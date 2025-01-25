@@ -33,7 +33,7 @@ const signUp = async (req, res) => {
     const sql = `INSERT INTO users (email, name, password ) VALUES (?, ?, ?)`;
     await pool.query(sql, [email, name, hashedPassword]);
 
-    res.status(201).send('User added successfully.');
+    res.status(200).send('User added successfully.');
   } catch (err) {
     return res.status(500).send(err.message);
   }
