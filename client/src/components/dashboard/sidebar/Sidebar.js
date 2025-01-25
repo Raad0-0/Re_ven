@@ -14,12 +14,13 @@ import axios from "axios";
 import "../common.css";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-  const [activeTab, setActiveTab] = useState("dashboard");
-  const [name, setName] = useState("");
+const [activeTab, setActiveTab] = useState("dashboard");
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
 
-  useEffect(() => {
+useEffect(() => {
     getImages();
-  }, []);
+}, []);
 
   // List of menu items
   const menuItems = [
@@ -41,7 +42,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { label: "Logout", icon: MdLogout, path: "/logout" },
   ];
 
-  const getImages = () => {
+const getImages = () => {
     try {
       axios
         .get("http://localhost:8080" + "/users/getUserById/1", {
@@ -53,6 +54,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           if (response.status === 200) {
             console.log(response.data);
             setName(response.data[0].name);
+            setEmail(response.data[0].email);
             // setImageList(response.data);
             // this.props.history.push('/');
             //setLoaderStatus(false);
@@ -69,7 +71,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     } catch (error) {
       //console.log(error.response);
     }
-  };
+};
 
   return (
     <div>
@@ -98,7 +100,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <CgProfile className="text-4xl text-white ml-6" />
           <div>
             <h4 className="text-white"> {name} </h4>
-            <p className="text-gray-400 text-sm">Owner</p>
+            <p className="text-gray-400 text-sm">{email}</p>
           </div>
         </div>
 

@@ -1,49 +1,7 @@
 import React from "react";
 import FilterBar from "../mainDash/FilterBar";
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-
 
 const ListingsTable = ({ showFilter }) => {
-    
-    const [propertyList, setPropertyList] = useState([]);
-    
-    useEffect(()=> {
-        getData();
-      }, []);
-    
-
-    const getData = () => {
-        try {
-          axios.get("http://localhost:8080"+'/owner/1', {
-            // headers: {
-            //   Authorization: "JWT " + token
-            // }
-          })
-            .then((response) => {
-              if (response.status === 200) {
-                console.log(response.data);
-                setPropertyList(response.data[0].);
-                // setImageList(response.data);
-                // this.props.history.push('/');
-                //setLoaderStatus(false);
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              if (error.response && error.response.status === 401) {
-                console.log(error.response.status);
-                // this.setState({ serverError: true });
-              }
-              //setLoaderStatus(false);
-            })
-        }
-        catch (error) {
-          //console.log(error.response);
-        }
-      }
-
-
     const listings = [
         { id: 1, name: "Gorgeous Apartment Building", status: "Approved", price: "$7,500" },
         { id: 2, name: "Mountain Mist Retreat, Aspen", status: "Approved", price: "$7,500" },
