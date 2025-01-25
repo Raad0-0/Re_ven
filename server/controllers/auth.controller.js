@@ -42,6 +42,7 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { email, password } = req.body;
   const sql = `SELECT * FROM users WHERE email = ?`;
+  
   try {
     // Find the user by email
     const [result] = await pool.query(sql, [email]);
@@ -60,8 +61,8 @@ const signIn = async (req, res) => {
     // Generate a JWT token
     const token = jwt.sign({ id: user.user_id }, secretKey, { expiresIn: '1d' });
 
-    res.json({ token });
-    res.send(token);
+    // Send the token in the response
+    return res.json({ token });
   } catch (err) {
     return res.status(500).send(err.message);
   }

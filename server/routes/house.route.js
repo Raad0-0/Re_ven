@@ -7,6 +7,7 @@ router.get('/lists', houseController.findAllHouses);
 router.get('/details/:house_id', houseController.findHouseById);
 router.put('/update/:house_id', houseController.updateHouseById);
 router.delete('/delete/:house_id', houseController.deleteHouse);
+router.get('/propertyDetails', houseController.getPropertyDetails);
 router.get('/owner/:user_id', houseController.findHousesByOwner);
 
 module.exports = router;

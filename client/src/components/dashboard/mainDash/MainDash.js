@@ -3,11 +3,47 @@ import PropertyTable from '../propertyTable/PropertyTable.js';
 import SummaryCard from './SummaryCard';
 import MessagesMain from './MessagesMain.js';
 import ReviewsPanel from './ReviewsMain.js';
-
 import { LuListCheck, LuFolderHeart } from "react-icons/lu";
 import { MdOutlinePendingActions, MdOutlineStarOutline } from "react-icons/md";
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function MainDash() {
+    
+    useEffect(()=> {
+        getData();
+      }, []);
+    
+
+    const getData = () => {
+        try {
+          axios.get("http://localhost:8080"+'/users/getUserById/1', {
+            // headers: {
+            //   Authorization: "JWT " + token
+            // }
+          })
+            .then((response) => {
+              if (response.status === 200) {
+                console.log(response.data);
+                // setImageList(response.data);
+                // this.props.history.push('/');
+                //setLoaderStatus(false);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              if (error.response && error.response.status === 401) {
+                console.log(error.response.status);
+                // this.setState({ serverError: true });
+              }
+              //setLoaderStatus(false);
+            })
+        }
+        catch (error) {
+          //console.log(error.response);
+        }
+      }
+
     return (
         <div className="grid bg-[#E5E7EB] grid-cols-1 lg:grid-cols-12 gap-6 p-6">
             {/* Summary Section */}

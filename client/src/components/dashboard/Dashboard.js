@@ -10,6 +10,8 @@ import ReviewsPanel from "./mainDash/ReviewsMain.js";
 import Profile from "./profile/Profile.js";
 import AddProperty from "./addProperty/AddProperty.js";
 
+
+
 export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 

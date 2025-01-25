@@ -1,17 +1,91 @@
 const pool = require('../database.js');
 
 // Create a new house
+// const createHouse = async (req, res) => {
+//   const { title, full_address, user_id } = req.body;
+//   const sql = `INSERT INTO houses (title, full_address, user_id) 
+//                VALUES (?, ?, ?)`;
+//   try {
+//     await pool.query(sql, [title, full_address, user_id]);
+//     res.status(201).send('House added successfully.');
+//   } catch (err) {
+//     res.status(500).send(err.message);
+//   }
+// };
+
+
+// Controller to add a house and related data
 const createHouse = async (req, res) => {
-  const { title, full_address, user_id } = req.body;
-  const sql = `INSERT INTO houses (title, full_address, user_id) 
-               VALUES (?, ?, ?)`;
+  const {
+    title,
+    description,
+    full_address,
+    country,
+    state,
+    zip,
+    location,
+    user_id,
+    type,
+    status,
+    size,
+    bedrooms,
+    bathrooms,
+    rooms,
+    air_condition,
+    wifi,
+    garden,
+    price,
+    before_price_label,
+    after_price_label,
+  } = req.body;
+
   try {
-    await pool.query(sql, [title, full_address, user_id]);
-    res.status(201).send('House added successfully.');
-  } catch (err) {
-    res.status(500).send(err.message);
+    // Insert into houses
+    const houseQuery = `
+      INSERT INTO houses (title, description, full_address, country, state, zip, location, user_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const [houseResult] = await pool.query(houseQuery, [
+      title,
+      description,
+      full_address,
+      country,
+      state,
+      zip,
+      location,
+      user_id,
+    ]);
+
+    const house_id = houseResult.insertId;
+
+    //Insert into house_details
+    const detailsQuery = `
+      INSERT INTO house_details (type, status, size, bedrooms, bathrooms, rooms, house_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    await pool.query(detailsQuery, [type, status, size, bedrooms, bathrooms, rooms, house_id]);
+
+    //Insert into amenities
+    const amenitiesQuery = `
+      INSERT INTO amenities (air_condition, wifi, garden, house_id)
+      VALUES (?, ?, ?, ?)
+    `;
+    await pool.query(amenitiesQuery, [air_condition ? 1 : 0, wifi ? 1 : 0, garden ? 1 : 0, house_id]);
+
+    // Insert into prices
+    const pricesQuery = `
+      INSERT INTO prices (price, before_price_label, after_price_label, house_id)
+      VALUES (?, ?, ?, ?)
+    `;
+    await pool.query(pricesQuery, [price, before_price_label, after_price_label, house_id]);
+
+    res.status(201).send({ message: 'House and related data added successfully!' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send({ error: 'Failed to add house.' });
   }
 };
+
 
 // Find all houses
 const findAllHouses = async (req, res) => {
@@ -25,6 +99,46 @@ const findAllHouses = async (req, res) => {
     });
   }
 };
+
+const getPropertyDetails = async (req, res) => {
+  try {
+    // SQL query to join houses and house_details
+    const sql = `
+      SELECT 
+        h.house_id,
+        h.title,
+        h.description,
+        h.full_address,
+        h.country,
+        h.state,
+        h.zip,
+        h.location,
+        h.user_id,
+        hd.type,
+        hd.status,
+        hd.size,
+        hd.bedrooms,
+        hd.bathrooms,
+        hd.rooms
+      FROM 
+        houses h
+      INNER JOIN 
+        house_details hd
+      ON 
+        h.house_id = hd.house_id
+    `;
+
+    // Execute the query
+    const [results] = await pool.query(sql);
+
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching house details:', error.message);
+    res.status(500).json({ message: 'Failed to fetch house and house details.' });
+  }
+};
+
+
 
 // Find one house by ID
 const findHouseById = async (req, res) => {
@@ -83,6 +197,7 @@ const findHousesByOwner = async (req, res) => {
 };
 
 module.exports = {
+  getPropertyDetails,
   createHouse,
   findAllHouses,
   findHouseById,

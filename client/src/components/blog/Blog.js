@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Blog = () => {
+  const [state, setState] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/house/lists")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => setState(data))
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
+  }, []);
+
+console.log(state);
 
   return (
 
@@ -27,6 +44,14 @@ const Blog = () => {
           </div>
         </div>
       </div>
+
+
+
+
+
+
+
+
     </div>
 
 

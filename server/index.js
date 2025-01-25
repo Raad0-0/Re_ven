@@ -3,12 +3,14 @@ const userRoute = require('./routes/user.route');
 const authRoute = require('./routes/auth.route');
 const houseRoute = require('./routes/house.route');
 const reviewRoute = require('./routes/review.route');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/", authRoute);
-app.use('/user', userRoute);
+app.use('/users', userRoute);
 app.use("/house", houseRoute);
 app.use("/review", reviewRoute);
 
